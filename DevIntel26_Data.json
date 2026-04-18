@@ -1,29 +1,21 @@
 {
-  "latestVersion": "1.3.0",
+  "latestVersion": "26.5.4",
   "notification": "New AI improvements just dropped!",
 
   "versions": [
     {
-      "version": "1.3.0",
-      "required": false,
-      "changes": [
-        "Improved AI responses",
-        "UI polish"
-      ]
-    },
-    {
-      "version": "1.2.0",
+      "version": "26.5.4",
       "required": true,
       "changes": [
-        "Critical bug fix",
-        "Security patch"
+        "Redesigned script architecture",
+        "Improved reliability"
       ]
     },
     {
-      "version": "1.1.0",
+      "version": "25.0.0",
       "required": false,
       "changes": [
-        "Initial AI release"
+        "Testing"
       ]
     }
   ]
