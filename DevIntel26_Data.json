@@ -5,7 +5,7 @@
   "versions": [
     {
       "version": "26.5.4",
-      "required": true,
+      "required": false,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
