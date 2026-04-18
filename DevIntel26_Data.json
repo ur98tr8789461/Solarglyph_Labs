@@ -1,0 +1,9 @@
+{
+  "version": "1.2.0",
+  "notification": "New AI feature just dropped!",
+  "requiredUpdate": false,
+  "changelog": [
+    "Improved response speed",
+    "Added new UI panel"
+  ]
+}
