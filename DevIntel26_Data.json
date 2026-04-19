@@ -1,11 +1,19 @@
 {
-  "latestVersion": "26.5.4",
-  "notification": "New AI improvements just dropped!",
+  "latestVersion": "26.6.0",
+  "notification": "Thank you for purchasing the roblox studio plugin!",
 
   "versions": [
     {
-      "version": "26.5.4",
+      "version": "26.6.0",
       "required": true,
+      "changes": [
+        "Redesigned script architecture",
+        "Improved reliability"
+      ]
+    },
+    {
+      "version": "26.5.4",
+      "required": false,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
