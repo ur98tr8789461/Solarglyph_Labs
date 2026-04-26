@@ -1,5 +1,5 @@
 {
-  "latestVersion": "26.0.0 BETA",
+  "latestVersion": "26.6.0 Unreleased",
   "notification": "Remember this PLUGIN is still in BETA",
 
   "versions": [
@@ -13,7 +13,7 @@
     },
     {
       "version": "26.6.0 Unreleased",
-      "required": false,
+      "required": true,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
