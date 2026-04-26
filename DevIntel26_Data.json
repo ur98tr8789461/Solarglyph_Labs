@@ -1,10 +1,10 @@
 {
-  "latestVersion": "26.6.0",
-  "notification": "Thank you for purchasing the roblox studio plugin!",
+  "latestVersion": "26.0.0 BETA",
+  "notification": "Remember this PLUGIN is still in BETA",
 
   "versions": [
-    {
-      "version": "26.6.0",
+        {
+      "version": "26.0.0 BETA",
       "required": true,
       "changes": [
         "Redesigned script architecture",
@@ -12,7 +12,15 @@
       ]
     },
     {
-      "version": "26.5.4",
+      "version": "26.6.0 Unreleased",
+      "required": false,
+      "changes": [
+        "Redesigned script architecture",
+        "Improved reliability"
+      ]
+    },
+    {
+      "version": "26.5.4 Unreleased",
       "required": false,
       "changes": [
         "Redesigned script architecture",
