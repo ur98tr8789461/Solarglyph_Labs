@@ -3,8 +3,8 @@
   "notification": "Remember this PLUGIN is still in BETA",
 
   "versions": [
-        {
-      "version": "26.0.0 BETA",
+    {
+      "version": "26.6.0 Unreleased",
       "required": true,
       "changes": [
         "Redesigned script architecture",
@@ -12,8 +12,8 @@
       ]
     },
     {
-      "version": "26.6.0 Unreleased",
-      "required": true,
+      "version": "26.0.0 BETA",
+      "required": false,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
