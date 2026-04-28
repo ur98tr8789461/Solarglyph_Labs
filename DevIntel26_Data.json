@@ -4,34 +4,11 @@
 
   "versions": [
     {
-      "version": "26.6.0 Unreleased",
+      "version": "26.0.0 BETA",
       "required": true,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
-      ]
-    },
-    {
-      "version": "26.0.0 BETA",
-      "required": false,
-      "changes": [
-        "Redesigned script architecture",
-        "Improved reliability"
-      ]
-    },
-    {
-      "version": "26.5.4 Unreleased",
-      "required": false,
-      "changes": [
-        "Redesigned script architecture",
-        "Improved reliability"
-      ]
-    },
-    {
-      "version": "25.0.0",
-      "required": false,
-      "changes": [
-        "Testing"
       ]
     }
   ]
