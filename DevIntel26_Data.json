@@ -1,11 +1,11 @@
 {
-  "latestVersion": "26.6.0 Unreleased",
+  "latestVersion": "26.0.0 BETA",
   "notification": "Remember this PLUGIN is still in BETA",
 
   "versions": [
     {
       "version": "26.0.0 BETA",
-      "required": true,
+      "required": false,
       "changes": [
         "Redesigned script architecture",
         "Improved reliability"
