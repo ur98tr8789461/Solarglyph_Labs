@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Launch | Ultra Blur Minimalist</title>
+    <title>Product Launch | Solid Minimalist Blur</title>
     <style>
         /* --- DESIGN SYSTEM & TOKENS --- */
         :root {
             --bg-dark: #040406;
+            --surface-dark: #0a0a0c;
             --text-light: #f5f5f7;
             --text-muted: #86868b;
             --text-btn-dark: #000000;
-            /* Drastically increased blur for a heavy, foggy frosted glass aesthetic */
-            --heavy-blur: blur(50px); 
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --mesh-glow: rgba(255, 255, 255, 0.15);
+            --solid-border: rgba(255, 255, 255, 0.04);
             --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
 
@@ -37,7 +34,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- AMBIENT MESH BACKGROUND --- */
+        /* --- AMBIENT TRUE BLUR BACKGROUND --- */
         .mesh-wrapper {
             position: fixed;
             top: 0;
@@ -46,50 +43,41 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: #050508;
+            background: #040406;
         }
 
-        /* Swirling high-contrast mesh orbs */
+        /* Massive, heavily blurred color fields */
         .mesh-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.35;
+            filter: blur(80px);
+            opacity: 0.25;
             mix-blend-mode: screen;
             animation: float 25s infinite alternate ease-in-out;
         }
 
         .orb-1 {
-            top: -20%;
+            top: -10%;
             left: -10%;
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(circle, #3b82f6 0%, transparent 80%);
-            animation-duration: 30s;
+            width: 55vw;
+            height: 55vh;
+            background: radial-gradient(circle, #2563eb 0%, transparent 80%);
+            animation-duration: 28s;
         }
 
         .orb-2 {
-            bottom: -15%;
-            right: -10%;
-            width: 65vw;
-            height: 65vh;
-            background: radial-gradient(circle, #6366f1 0%, transparent 80%);
-            animation-duration: 22s;
-        }
-
-        .orb-3 {
-            top: 30%;
-            left: 40%;
-            width: 50vw;
-            height: 50vh;
-            background: radial-gradient(circle, #a855f7 0%, transparent 80%);
-            animation-duration: 26s;
+            bottom: -10%;
+            right: -5%;
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, #4f46e5 0%, transparent 80%);
+            animation-duration: 20s;
         }
 
         @keyframes float {
             0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(60px, -40px) scale(1.15); }
-            100% { transform: translate(-30px, 30px) scale(0.95); }
+            50% { transform: translate(40px, -30px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.95); }
         }
 
         /* --- STRUCTURE --- */
@@ -183,20 +171,18 @@
             max-width: 480px;
         }
 
-        /* Ultra Heavy Blur Feature Showcase */
+        /* Solid Dark Canvas (No Glass Effect) */
         .product-showcase {
             position: relative;
             width: 100%;
             height: 520px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            backdrop-filter: var(--heavy-blur);
-            -webkit-backdrop-filter: var(--heavy-blur);
+            background: var(--surface-dark);
+            border: 1px solid var(--solid-border);
+            border-radius: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         }
 
         .product-image-placeholder {
@@ -204,21 +190,16 @@
             font-size: 0.85rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            border: 1px dashed var(--glass-border);
+            border: 1px dashed var(--solid-border);
             padding: 24px 44px;
             border-radius: 14px;
         }
 
-        /* --- THE SOLID OPAQUE DOCKING BUTTON --- */
-        .cta-sentinel {
-            height: 1px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-        }
-
+        /* --- STABLE SCROLL-DOCKING BUTTON SYSTEM --- */
         .btn-container {
-            height: 60px; 
+            height: 56px; 
+            position: relative;
+            width: auto;
         }
 
         .buy-button {
@@ -226,49 +207,43 @@
             align-items: center;
             justify-content: center;
             height: 56px;
-            padding: 0 40px;
+            padding: 0 44px;
             font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
             
-            /* Completely Opaque White Styling */
+            /* Solid Opaque White & Fully Curved at Launch */
             color: var(--text-btn-dark);
             background-color: #ffffff;
-            border: 1px solid #ffffff;
-            border-radius: 12px;
+            border: none;
+            border-radius: 40px; 
             
             text-decoration: none;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            
+            /* Smooth transformation configurations */
             transition: 
-                position 0s,
                 transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s ease,
-                border-radius 0.4s ease;
+                box-shadow 0.4s ease;
             z-index: 999;
         }
 
         .buy-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
         }
 
-        /* Floating State: Drops cleanly from the TOP of the screen */
+        /* Fixed Floating State: Moves stably to the bottom left spot */
         .buy-button.is-floating {
             position: fixed;
-            top: 40px; /* Anchored to top layout boundary */
-            bottom: auto; /* Disables bottom positioning */
+            bottom: 40px; 
+            top: auto;
             left: 40px;
-            padding: 0 32px;
-            border-radius: 30px; /* Clean pill shape */
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.7),
-                0 0 35px var(--mesh-glow); /* High intensity structural glow */
-            animation: dropDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: slideToBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes dropDown {
-            from { transform: translateY(-120px); opacity: 0; }
+        @keyframes slideToBottom {
+            from { transform: translateY(-80px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
@@ -301,21 +276,18 @@
             gap: 40px;
         }
 
-        /* High-Blur Glass Cards */
+        /* Solid Dark Minimalist Cards (No Glass Effect) */
         .glass-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--surface-dark);
+            border: 1px solid var(--solid-border);
             border-radius: 24px;
             padding: 48px;
-            backdrop-filter: var(--heavy-blur);
-            -webkit-backdrop-filter: var(--heavy-blur);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transition: border-color 0.3s, transform 0.3s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: border-color 0.3s;
         }
 
         .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .glass-card h3 {
@@ -333,8 +305,8 @@
 
         /* --- FOOTER --- */
         footer {
-            padding: 100px 0;
-            border-top: 1px solid var(--glass-border);
+            padding: 100px 0 160px 0; /* Padding offsets floating bottom button */
+            border-top: 1px solid var(--solid-border);
             font-size: 0.85rem;
             color: var(--text-muted);
         }
@@ -358,19 +330,18 @@
             .hero h1 { font-size: 3.25rem; }
             .product-showcase { height: 380px; }
             
-            /* Responsive Drop-Down position configuration for narrow screens */
+            /* Smooth centering layout at bottom for mobile screens */
             .buy-button.is-floating {
                 left: 50%;
-                transform: translateX(-50%);
-                top: 24px;
+                bottom: 24px;
                 width: calc(100% - 40px);
                 max-width: 340px;
-                animation: dropDownMobile 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation: slideToBottomMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
         }
 
-        @keyframes dropDownMobile {
-            from { transform: translate(-50%, -120px); opacity: 0; }
+        @keyframes slideToBottomMobile {
+            from { transform: translate(-50%, 80px); opacity: 0; }
             to { transform: translate(-50%, 0); opacity: 1; }
         }
     </style>
@@ -380,7 +351,6 @@
     <div class="mesh-wrapper">
         <div class="mesh-orb orb-1"></div>
         <div class="mesh-orb orb-2"></div>
-        <div class="mesh-orb orb-3"></div>
     </div>
 
     <header>
@@ -400,7 +370,7 @@
             
             <div class="hero-content">
                 <h1>Pure clarity. Native power.</h1>
-                <p>An elite desktop environment engine engineered using high-density mesh textures and deep viewport layering physics.</p>
+                <p>An elite desktop environment engine engineered using flat solid geometry layers and heavy ambient blur fields.</p>
                 
                 <div class="btn-container">
                     <a href="https://buy.stripe.com/your-custom-link-here" id="docking-cta" class="buy-button">
@@ -416,27 +386,26 @@
             </div>
 
         </div>
-        <div id="cta-trigger" class="cta-sentinel"></div>
     </section>
 
     <section id="features" class="container features">
         <div class="section-header">
             <h2>Designed to be unseen.</h2>
-            <p>Monolithic structural design layouts with high-potency background blurring values.</p>
+            <p>Monolithic structural layout panels contrasting against deep organic background gradients.</p>
         </div>
 
         <div class="grid">
             <div class="glass-card">
-                <h3>Heavy Frost</h3>
-                <p>Utilizes a custom 50px core blur coefficient rendering clean, non-distracting UI fields over complex graphic layers.</p>
+                <h3>High Density Blur</h3>
+                <p>Deep 80px color mixing algorithm sets up premium interface backing shadows without visual glass line clutter.</p>
             </div>
             <div class="glass-card">
-                <h3>Opaque Anchors</h3>
-                <p>High contrast stark white geometric touchpoints offer unmistakable conversion pathways against dark background space.</p>
+                <h3>Opaque Pill CTA</h3>
+                <p>A fully curved solid white button provides strong contrast, gliding to the layout base as the frame scrolls.</p>
             </div>
             <div class="glass-card">
-                <h3>Mesh Blends</h3>
-                <p>Silky, low-frequency background orbs slowly translate across viewport spaces generating organic luminance changes.</p>
+                <h3>Clean Geometry</h3>
+                <p>Eliminated all traditional glossy layers to form a sharp, matte surface structure for professional presentation.</p>
             </div>
         </div>
     </section>
@@ -450,27 +419,23 @@
 
     <script>
         const ctaButton = document.getElementById('docking-cta');
-        const trigger = document.getElementById('cta-trigger');
+        // Track the layout container box position to calculate structural docking metrics
+        const btnContainer = ctaButton.parentElement;
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0
-        };
+        window.addEventListener('scroll', () => {
+            const containerTop = btnContainer.getBoundingClientRect().top;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    // Activate drop-down mode once user crosses the hero threshold
+            // Trigger transition exactly when native hero container line scrolls away
+            if (containerTop < 0) {
+                if (!ctaButton.classList.contains('is-floating')) {
                     ctaButton.classList.add('is-floating');
-                } else {
-                    // Restore button instantly back to its primary home frame
+                }
+            } else {
+                if (ctaButton.classList.contains('is-floating')) {
                     ctaButton.classList.remove('is-floating');
                 }
-            });
-        }, observerOptions);
-
-        observer.observe(trigger);
+            }
+        });
     </script>
 
 </body>
