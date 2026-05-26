@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Launch | Minimal Luxury</title>
+    <title>Product Launch | Ultra Blur Minimalist</title>
     <style>
         /* --- DESIGN SYSTEM & TOKENS --- */
         :root {
-            --bg-dark: #070709;
+            --bg-dark: #040406;
             --text-light: #f5f5f7;
             --text-muted: #86868b;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --liquid-glow: rgba(0, 122, 255, 0.5); /* Customize glow color here */
+            --text-btn-dark: #000000;
+            /* Drastically increased blur for a heavy, foggy frosted glass aesthetic */
+            --heavy-blur: blur(50px); 
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --mesh-glow: rgba(255, 255, 255, 0.15);
             --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
 
@@ -43,50 +46,50 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: #0a0a0c;
+            background: #050508;
         }
 
-        /* Swirling liquid mesh orbs */
+        /* Swirling high-contrast mesh orbs */
         .mesh-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.45;
+            filter: blur(120px);
+            opacity: 0.35;
             mix-blend-mode: screen;
-            animation: float 20s infinite alternate ease-in-out;
+            animation: float 25s infinite alternate ease-in-out;
         }
 
         .orb-1 {
-            top: -10%;
+            top: -20%;
             left: -10%;
-            width: 50vw;
-            height: 50vh;
-            background: radial-gradient(circle, #4f46e5 0%, transparent 80%);
-            animation-duration: 25s;
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, #3b82f6 0%, transparent 80%);
+            animation-duration: 30s;
         }
 
         .orb-2 {
-            bottom: -10%;
-            right: -5%;
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(circle, #007aff 0%, transparent 80%);
-            animation-duration: 18s;
+            bottom: -15%;
+            right: -10%;
+            width: 65vw;
+            height: 65vh;
+            background: radial-gradient(circle, #6366f1 0%, transparent 80%);
+            animation-duration: 22s;
         }
 
         .orb-3 {
-            top: 40%;
-            left: 50%;
-            width: 45vw;
-            height: 45vh;
-            background: radial-gradient(circle, #8b5cf6 0%, transparent 80%);
-            animation-duration: 22s;
+            top: 30%;
+            left: 40%;
+            width: 50vw;
+            height: 50vh;
+            background: radial-gradient(circle, #a855f7 0%, transparent 80%);
+            animation-duration: 26s;
         }
 
         @keyframes float {
             0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(40px, -60px) scale(1.2); }
-            100% { transform: translate(-20px, 20px) scale(0.9); }
+            50% { transform: translate(60px, -40px) scale(1.15); }
+            100% { transform: translate(-30px, 30px) scale(0.95); }
         }
 
         /* --- STRUCTURE --- */
@@ -99,7 +102,7 @@
         /* --- NAVIGATION --- */
         header {
             width: 100%;
-            padding: 30px 0;
+            padding: 40px 0;
             position: absolute;
             top: 0;
             left: 0;
@@ -113,26 +116,26 @@
         }
 
         .logo {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            letter-spacing: -0.03em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 40px;
         }
 
         nav ul li a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             transition: color 0.3s;
         }
 
@@ -145,14 +148,14 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 100px;
+            padding-top: 120px;
             position: relative;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 80px;
             align-items: center;
             width: 100%;
         }
@@ -164,51 +167,49 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
-            line-height: 1.08;
+            line-height: 1.05;
             letter-spacing: -0.04em;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            color: #ffffff;
         }
 
         .hero p {
             font-size: 1.25rem;
             color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 40px;
-            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 44px;
+            max-width: 480px;
         }
 
-        /* Hero Image Placeholder Container */
+        /* Ultra Heavy Blur Feature Showcase */
         .product-showcase {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 520px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            backdrop-filter: var(--heavy-blur);
+            -webkit-backdrop-filter: var(--heavy-blur);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
         .product-image-placeholder {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             border: 1px dashed var(--glass-border);
-            padding: 20px 40px;
-            border-radius: 12px;
+            padding: 24px 44px;
+            border-radius: 14px;
         }
 
-        /* --- THE LIQUID GLASS SCROLL-DOCKING BUTTON --- */
+        /* --- THE SOLID OPAQUE DOCKING BUTTON --- */
         .cta-sentinel {
             height: 1px;
             width: 100%;
@@ -217,7 +218,7 @@
         }
 
         .btn-container {
-            height: 60px; /* Reserves space so page layout doesn't jump */
+            height: 60px; 
         }
 
         .buy-button {
@@ -225,62 +226,55 @@
             align-items: center;
             justify-content: center;
             height: 56px;
-            padding: 0 36px;
-            font-size: 1rem;
+            padding: 0 40px;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #fff;
+            letter-spacing: -0.01em;
+            
+            /* Completely Opaque White Styling */
+            color: var(--text-btn-dark);
+            background-color: #ffffff;
+            border: 1px solid #ffffff;
+            border-radius: 12px;
+            
             text-decoration: none;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
             cursor: pointer;
-            backdrop-filter: blur(25px) saturate(190%);
-            -webkit-backdrop-filter: blur(25px) saturate(190%);
-            box-shadow: 
-                0 4px 30px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
             transition: 
                 position 0s,
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.5s ease,
-                border-color 0.5s ease,
-                padding 0.5s ease,
-                border-radius 0.5s ease;
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-radius 0.4s ease;
             z-index: 999;
         }
 
         .buy-button:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 
-                0 4px 30px rgba(0, 0, 0, 0.6),
-                inset 0 1px 2px rgba(255, 255, 255, 0.5);
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25);
         }
 
-        /* Floating/Docked State Classes triggered by JS */
+        /* Floating State: Drops cleanly from the TOP of the screen */
         .buy-button.is-floating {
             position: fixed;
-            bottom: 40px;
+            top: 40px; /* Anchored to top layout boundary */
+            bottom: auto; /* Disables bottom positioning */
             left: 40px;
-            padding: 0 28px;
-            border-radius: 30px; /* Morphs into capsule */
-            border-color: rgba(255, 255, 255, 0.25);
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 0 32px;
+            border-radius: 30px; /* Clean pill shape */
             box-shadow: 
-                0 10px 40px rgba(0, 0, 0, 0.6),
-                0 0 25px var(--liquid-glow), /* Liquid glow effect */
-                inset 0 1px 1px rgba(255, 255, 255, 0.4);
-            animation: floatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                0 20px 40px rgba(0, 0, 0, 0.7),
+                0 0 35px var(--mesh-glow); /* High intensity structural glow */
+            animation: dropDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes floatIn {
-            from { transform: translateY(100px) scale(0.9); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
+        @keyframes dropDown {
+            from { transform: translateY(-120px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         /* --- PRODUCT FEATURES SECTION --- */
         .features {
-            padding: 140px 0;
+            padding: 160px 0;
         }
 
         .section-header {
@@ -291,53 +285,55 @@
             font-size: 2.5rem;
             font-weight: 700;
             letter-spacing: -0.03em;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .section-header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
+            font-size: 1.15rem;
+            max-width: 550px;
+            line-height: 1.6;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
+        /* High-Blur Glass Cards */
         .glass-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 48px;
+            backdrop-filter: var(--heavy-blur);
+            -webkit-backdrop-filter: var(--heavy-blur);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             transition: border-color 0.3s, transform 0.3s;
         }
 
         .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.12);
             transform: translateY(-4px);
         }
 
         .glass-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
             font-weight: 600;
             letter-spacing: -0.01em;
         }
 
         .glass-card p {
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 0.95rem;
         }
 
         /* --- FOOTER --- */
         footer {
-            padding: 80px 0 120px 0; /* Extra bottom padding so floating button doesn't block layout links */
+            padding: 100px 0;
             border-top: 1px solid var(--glass-border);
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -349,33 +345,32 @@
             align-items: center;
         }
 
-        /* --- RESPONSIVE MOBILE FIX --- */
+        /* --- MOBILE ADAPTATION --- */
         @media(max-width: 968px) {
             .hero-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 60px;
                 text-align: center;
             }
             .hero-content {
                 align-items: center;
             }
-            .hero h1 { font-size: 3rem; }
-            .product-showcase { height: 350px; }
+            .hero h1 { font-size: 3.25rem; }
+            .product-showcase { height: 380px; }
             
-            /* Responsive layout adjustments for mobile docking */
+            /* Responsive Drop-Down position configuration for narrow screens */
             .buy-button.is-floating {
                 left: 50%;
                 transform: translateX(-50%);
-                bottom: 24px;
+                top: 24px;
                 width: calc(100% - 40px);
                 max-width: 340px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px var(--liquid-glow);
-                animation: floatInMobile 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation: dropDownMobile 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
         }
 
-        @keyframes floatInMobile {
-            from { transform: translate(-50%, 100px); opacity: 0; }
+        @keyframes dropDownMobile {
+            from { transform: translate(-50%, -120px); opacity: 0; }
             to { transform: translate(-50%, 0); opacity: 1; }
         }
     </style>
@@ -394,7 +389,6 @@
             <nav>
                 <ul>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#specs">Specs</a></li>
                     <li><a href="mailto:support@example.com">Contact</a></li>
                 </ul>
             </nav>
@@ -405,8 +399,8 @@
         <div class="container hero-grid">
             
             <div class="hero-content">
-                <h1>The Future of Spatial Design.</h1>
-                <p>An elegant ecosystem built with liquid physics, minimalist clarity, and zero-latency desktop workflows.</p>
+                <h1>Pure clarity. Native power.</h1>
+                <p>An elite desktop environment engine engineered using high-density mesh textures and deep viewport layering physics.</p>
                 
                 <div class="btn-container">
                     <a href="https://buy.stripe.com/your-custom-link-here" id="docking-cta" class="buy-button">
@@ -417,7 +411,7 @@
 
             <div class="product-showcase">
                 <div class="product-image-placeholder">
-                    Drop Product Artwork Here
+                    Drop Product Mockup Here
                 </div>
             </div>
 
@@ -427,22 +421,22 @@
 
     <section id="features" class="container features">
         <div class="section-header">
-            <h2>Engineered For Perfection</h2>
-            <p>A meticulous blend of beautiful form and lightweight performance architecture.</p>
+            <h2>Designed to be unseen.</h2>
+            <p>Monolithic structural design layouts with high-potency background blurring values.</p>
         </div>
 
         <div class="grid">
             <div class="glass-card">
-                <h3>Glass Architecture</h3>
-                <p>Designed natively around real-time refraction models that cleanly isolate functional viewports.</p>
+                <h3>Heavy Frost</h3>
+                <p>Utilizes a custom 50px core blur coefficient rendering clean, non-distracting UI fields over complex graphic layers.</p>
             </div>
             <div class="glass-card">
-                <h3>Mesh Engine</h3>
-                <p>Dynamic background layers auto-adapt contrast to prioritize perfect modern text readability ratios.</p>
+                <h3>Opaque Anchors</h3>
+                <p>High contrast stark white geometric touchpoints offer unmistakable conversion pathways against dark background space.</p>
             </div>
             <div class="glass-card">
-                <h3>Instant Checkout</h3>
-                <p>Fully compatible with global secure networks including Stripe, Apple Pay, and native crypto options.</p>
+                <h3>Mesh Blends</h3>
+                <p>Silky, low-frequency background orbs slowly translate across viewport spaces generating organic luminance changes.</p>
             </div>
         </div>
     </section>
@@ -450,7 +444,7 @@
     <footer>
         <div class="container footer-container">
             <p>&copy; 2026 AURA Studio. Powered by GitHub Pages.</p>
-            <p>Built for the Modern Web Layout.</p>
+            <p>Minimalist Luxury Systems.</p>
         </div>
     </footer>
 
@@ -458,7 +452,6 @@
         const ctaButton = document.getElementById('docking-cta');
         const trigger = document.getElementById('cta-trigger');
 
-        // High-performance Intersection Observer interface configuration
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -468,10 +461,10 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) {
-                    // Trigger state change once layout scrolls down past the Hero view
+                    // Activate drop-down mode once user crosses the hero threshold
                     ctaButton.classList.add('is-floating');
                 } else {
-                    // Return button smoothly back into native layout node
+                    // Restore button instantly back to its primary home frame
                     ctaButton.classList.remove('is-floating');
                 }
             });
