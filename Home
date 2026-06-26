@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solarglyph Labs | Premium Digital Tools</title>
+    
+    <!-- Google Fonts: Inter for that Apple SF Pro look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Brand Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        solarglyph: '#07304B', // The requested Accent Color
+                        apple: {
+                            bgLight: '#F5F5F7',
+                            bgDark: '#000000',
+                            textLight: '#1D1D1F',
+                            textDark: '#F5F5F7'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Glassmorphism Utilities */
+        .glass-nav {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+        .dark .glass-nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-card {
+            background: rgba(30, 30, 32, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Ambient Glow Effect for Dark Mode */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(7,48,75,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-apple-bgLight dark:bg-apple-bgDark text-apple-textLight dark:text-apple-textDark transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Ambient background glows -->
+    <div class="hidden dark:block ambient-glow" style="top: -100px; right: -100px;"></div>
+    <div class="hidden dark:block ambient-glow" style="top: 50%; left: -200px; background: radial-gradient(circle, rgba(7,48,75,0.1) 0%, rgba(0,0,0,0) 60%);"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <img class="h-8 w-auto mr-3 object-contain" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('logo-text').classList.remove('hidden');">
+                    <span id="logo-text" class="font-semibold text-lg tracking-tight hidden">Solarglyph Labs</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">About</a>
+                    <a href="#products" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
+                    <a href="#connect" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Connect</a>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden text-gray-700"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-gray-300"></i>
+                    </button>
+                    
+                    <!-- CTA -->
+                    <a href="#products" class="text-sm font-medium bg-solarglyph text-white px-5 py-2.5 rounded-full hover:bg-opacity-90 transition-all shadow-md">
+                        Explore Labs
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-[90vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 bg-solarglyph/10 dark:bg-solarglyph/20 text-solarglyph dark:text-blue-300 px-4 py-1.5 rounded-full text-sm font-medium mb-8 animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-solarglyph dark:bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-solarglyph dark:bg-blue-400"></span>
+                </span>
+                <span>Welcome to the new standard.</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                Code crafted with <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-solarglyph to-blue-500 dark:from-blue-400 dark:to-solarglyph">absolute precision.</span>
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-10 opacity-0 animate-[fadeInUp_0.8s_ease-out_0.2s_forwards]">
+                Solarglyph Labs builds next-generation digital products, high-performance software, and intelligent plugins designed for modern creators.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 opacity-0 animate-[fadeInUp_0.8s_ease-out_0.4s_forwards]">
+                <a href="#products" class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                    View Our Software
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-full glass-card font-medium text-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
+                    Discover Our Story <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Decorative subtle element -->
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[800px] h-[300px] bg-solarglyph/5 dark:bg-solarglyph/10 blur-[100px] rounded-full pointer-events-none"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white dark:bg-[#0a0a0a] transition-colors duration-500 relative border-t border-gray-100 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto reveal">
+                <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">About Us</h2>
+                <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">The science of software.</h3>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                    At Solarglyph Labs, we believe that digital tools should be as beautifully designed as the hardware they run on. We blur the line between utility and art, creating software and plugins that don't just work—they inspire your best work.
+                </p>
+            </div>
+            
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-3xl reveal flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                        <i data-lucide="cpu" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Clean Architecture</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Built on modern frameworks with zero bloat. Our software is designed to be lightweight, incredibly fast, and exceptionally reliable.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-3xl reveal flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                        <i data-lucide="blocks" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Seamless Plugins</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Integrate our tools directly into your existing workflow. Plug and play functionality with extensive and clean API support.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-3xl reveal flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                        <i data-lucide="sparkles" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Premium Design</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">We obsess over pixels, padding, and smooth animations. Our interfaces are crafted for pure, distraction-free focus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">Portfolio</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Our latest creations.</h3>
+                    <p class="text-xl text-gray-600 dark:text-gray-400">Software designed to accelerate your workflow.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Product Card 1 -->
+                <div class="glass-card rounded-[2rem] overflow-hidden group reveal cursor-pointer relative min-h-[400px]">
+                    <div class="p-10 flex flex-col h-full z-10 relative">
+                        <div class="mb-4">
+                            <span class="px-3 py-1 text-xs font-semibold bg-black text-white dark:bg-white dark:text-black rounded-full uppercase tracking-wider">Browser Plugin</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3 group-hover:text-solarglyph dark:group-hover:text-blue-400 transition-colors">Glyph Engine</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-md text-lg">Our flagship rendering plugin that brings high-fidelity glassmorphism to your web projects instantly. Lightweight and powerful.</p>
+                        
+                        <div class="mt-auto">
+                            <span class="text-solarglyph dark:text-blue-400 font-medium flex items-center group-hover:translate-x-2 transition-transform">
+                                Explore Plugin <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Abstract Graphic for Card -->
+                    <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-gradient-to-br from-solarglyph to-blue-300 opacity-20 dark:opacity-30 blur-[60px] rounded-full group-hover:scale-125 transition-transform duration-700"></div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="glass-card rounded-[2rem] overflow-hidden group reveal cursor-pointer relative min-h-[400px]" style="transition-delay: 150ms;">
+                    <div class="p-10 flex flex-col h-full z-10 relative">
+                        <div class="mb-4">
+                            <span class="px-3 py-1 text-xs font-semibold bg-solarglyph text-white rounded-full uppercase tracking-wider">Desktop Software</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3 group-hover:text-solarglyph dark:group-hover:text-blue-400 transition-colors">Solar Sync</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-md text-lg">The ultimate desktop client for synchronizing your development environments securely across the cloud with end-to-end encryption.</p>
+                        
+                        <div class="mt-auto">
+                            <span class="text-solarglyph dark:text-blue-400 font-medium flex items-center group-hover:translate-x-2 transition-transform">
+                                Download App <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Abstract Graphic for Card -->
+                    <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-gradient-to-br from-gray-400 to-gray-800 opacity-10 dark:opacity-40 blur-[60px] rounded-full group-hover:scale-125 transition-transform duration-700"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect / Call to Action -->
+    <section id="connect" class="py-24 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-card rounded-[3rem] p-12 text-center reveal relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-solarglyph/5 dark:to-solarglyph/20 pointer-events-none"></div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 relative z-10">Ready to upgrade your workflow?</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto relative z-10">Join the waitlist for our upcoming software suite or get in touch for custom plugin development.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 relative z-10">
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                        Contact Sales
+                    </button>
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-gray-100 dark:bg-white/10 font-medium text-lg hover:bg-gray-200 dark:hover:bg-white/20 transition-all duration-300">
+                        Join Waitlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#050505] pt-16 pb-8 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <!-- Logo using provided URL -->
+                    <img class="h-8 w-auto mb-6 object-contain" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('footer-logo-text').classList.remove('hidden');">
+                    <span id="footer-logo-text" class="font-semibold text-xl tracking-tight hidden mb-6 block">Solarglyph Labs</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Precision software and digital plugins engineered for the modern web.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Products</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Glyph Engine</a></li>
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Solar Sync</a></li>
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Lab API</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Company</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#about" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Careers</a></li>
+                        <li><a href="#connect" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    &copy; <span id="year"></span> Solarglyph Labs. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-gray-400">
+                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+        
+        // Set Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const htmlClasses = document.documentElement.classList;
+        const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        
+        // Check local storage or system preference on load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlClasses.add('dark');
+        } else {
+            htmlClasses.remove('dark');
+        }
+
+        // Toggle theme function
+        function toggleTheme() {
+            if (htmlClasses.contains('dark')) {
+                htmlClasses.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlClasses.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Attach listeners
+        themeToggles.forEach(btn => {
+            if(btn) btn.addEventListener('click', toggleTheme);
+        });
+
+        // Scroll Reveal Animation (Apple Keynote Style)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // when to trigger animation
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        // Listen for scroll to trigger animations
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load to show elements already in view
+        reveal();
+    </script>
+</body>
+</html>
