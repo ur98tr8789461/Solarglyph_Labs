@@ -295,11 +295,11 @@
                 <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto relative z-10">Experience Developer Intelligence and our upcoming software suite today.</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 relative z-10">
-                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-xl hover:shadow-solarglyph/40 hover:-translate-y-1 transition-all duration-300">
-                        Get Started
-                    </button>
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-xl hover:shadow-solarglyph/40 hover:-translate-y-1 transition-all duration-300">
+                        Join the Discord server to get in contact
+                    </a>
                     <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-gray-200/50 dark:bg-white/10 font-medium text-lg hover:bg-gray-300/50 dark:hover:bg-white/20 transition-all duration-300 backdrop-blur-md">
-                        Join Waitlist
+                        I'm not sure
                     </button>
                 </div>
             </div>
@@ -325,9 +325,7 @@
                 <div>
                     <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Products</h4>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Developer Intelligence</a></li>
-                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Glyph Engine</a></li>
-                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Solar Sync</a></li>
+                        <li><a href="https://ur98tr8789461.github.io/Solarglyph_Labs/DeveloperIntelligence.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Developer Intelligence</a></li>
                     </ul>
                 </div>
 
@@ -376,19 +374,11 @@
                 title: "Developer Intelligence",
                 description: "The best AI assistant for Roblox Studio. Accelerate your game development with intelligent, context-aware code generation and automated asset management.",
                 linkText: "Explore Intelligence",
+                linkUrl: "https://ur98tr8789461.github.io/Solarglyph_Labs/DeveloperIntelligence.html",
                 glowColor: "from-blue-500 to-cyan-400",
                 delay: "0ms"
-            },
-            {
-                tag: "Browser Plugin",
-                tagColor: "bg-black text-white dark:bg-white dark:text-black",
-                title: "Glyph Engine",
-                description: "Our core rendering plugin that brings high-fidelity glassmorphism to your web projects instantly. Lightweight, beautifully blurred, and powerful.",
-                linkText: "Get Plugin",
-                glowColor: "from-solarglyph to-blue-300",
-                delay: "150ms"
             }
-            // You can easily copy and paste a block above to add a 3rd or 4th product!
+            // You can easily copy and paste a block above to add a 2nd or 3rd product later!
         ];
 
         // Function to render products to the DOM
@@ -398,7 +388,7 @@
 
             productsData.forEach((product) => {
                 html += `
-                <div class="glass-card rounded-[2.5rem] overflow-hidden group reveal cursor-pointer relative min-h-[420px]" style="transition-delay: ${product.delay};">
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group reveal relative min-h-[420px]" style="transition-delay: ${product.delay};">
                     <div class="p-10 md:p-12 flex flex-col h-full z-10 relative">
                         <div class="mb-6">
                             <span class="px-4 py-1.5 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm ${product.tagColor}">
@@ -409,9 +399,9 @@
                         <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-md text-lg leading-relaxed">${product.description}</p>
                         
                         <div class="mt-auto">
-                            <span class="text-solarglyph dark:text-blue-400 font-semibold flex items-center group-hover:translate-x-3 transition-transform duration-300 text-lg">
+                            <a href="${product.linkUrl}" class="text-solarglyph dark:text-blue-400 font-semibold flex items-center group-hover:translate-x-3 transition-transform duration-300 text-lg w-fit">
                                 ${product.linkText} <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <!-- Dynamic Abstract Graphic for Card -->
