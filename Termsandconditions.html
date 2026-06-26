@@ -122,6 +122,12 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Interactive Magnetic Wrapper */
+        .magnetic-wrapper {
+            display: inline-block;
+            perspective: 1000px;
+        }
     </style>
 </head>
 <body class="bg-apple-bgLight dark:bg-apple-bgDark text-apple-textLight dark:text-apple-textDark transition-colors duration-500 overflow-x-hidden">
@@ -135,7 +141,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo linking back to homepage -->
-                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer group">
+                <a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html" class="flex-shrink-0 flex items-center cursor-pointer group">
                     <img class="h-8 w-auto mr-3 object-contain group-hover:scale-105 transition-transform" 
                          src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
                          alt="Solarglyph Labs Logo"
@@ -145,8 +151,8 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Home Page</a>
-                    <a href="index.html#products" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
+                    <a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Home Page</a>
+                    <a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html#products" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
                     
                     <!-- Theme Toggle Button -->
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none hover:rotate-12" aria-label="Toggle Dark Mode">
@@ -369,11 +375,13 @@
                 </div>
             </div>
 
-            <!-- CTA back to homepage -->
+            <!-- CTA back to homepage (Magnetic Interactive Mouse Following Wrapper) -->
             <div class="pt-8 text-center reveal" style="transition-delay: 400ms;">
-                <a href="index.html" class="inline-flex items-center gap-2 bg-solarglyph text-white font-medium px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-solarglyph/30 hover:-translate-y-1 transition-all duration-300">
-                    <i data-lucide="arrow-left" class="w-5 h-5"></i> Back to Homepage
-                </a>
+                <div class="magnetic-wrapper">
+                    <a id="magnetic-btn" href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html" class="inline-flex items-center gap-2 bg-solarglyph text-white font-medium px-8 py-4 rounded-full shadow-lg hover:shadow-solarglyph/30 transition-shadow duration-300 select-none cursor-pointer">
+                        <i data-lucide="arrow-left" class="w-5 h-5 pointer-events-none"></i> Back to Homepage
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -475,7 +483,40 @@
         // Listen for scroll to trigger animations
         window.addEventListener("scroll", reveal);
         // Trigger once on load to show elements already in view
-        setTimeout(reveal, 100); 
+        setTimeout(reveal, 100);
+
+        /* =====================================================================
+           MAGNETIC MOUSE-FOLLOWING BUTTON SCRIPT
+           Tracks cursor coordinates while in range and pulls/attracts the CTA
+        ===================================================================== */
+        const magneticBtn = document.getElementById('magnetic-btn');
+        const wrapper = document.querySelector('.magnetic-wrapper');
+
+        if (magneticBtn && wrapper) {
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = magneticBtn.getBoundingClientRect();
+                
+                // Calculate position relative to the center of the button
+                const x = e.clientX - (rect.left + rect.width / 2);
+                const y = e.clientY - (rect.top + rect.height / 2);
+                
+                // Pull effect coefficients
+                const pullX = x * 0.35;
+                const pullY = y * 0.35;
+                const tiltX = -y * 0.15; // Subtle tilting effect based on cursor position
+                const tiltY = x * 0.15;
+
+                // Apply interactive transformation instantly
+                magneticBtn.style.transform = `translate3d(${pullX}px, ${pullY}px, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+                magneticBtn.style.transition = 'none';
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                // When mouse leaves / goes out of range, smoothly spring back to origin
+                magneticBtn.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                magneticBtn.style.transform = 'translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        }
     </script>
 </body>
 </html>
