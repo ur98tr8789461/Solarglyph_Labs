@@ -1,1 +1,855 @@
+<!DOCTYPE html>
+<html lang="en" class="dark style-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Intelligence | Solarglyph Labs</title>
+    
+    <!-- Google Fonts: Inter for that Apple SF Pro look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Tailwind Config for Custom Brand Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        solarglyph: '#07304B', // Brand Accent Color
+                        apple: {
+                            bgLight: '#F5F5F7',
+                            bgDark: '#000000',
+                            textLight: '#1D1D1F',
+                            textDark: '#F5F5F7'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 8s ease-in-out infinite',
+                        'float-delayed': 'float 10s ease-in-out 2s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-cutout': 'floatCutout 6s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px) scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
+                        },
+                        floatCutout: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-12px) scale(1.03) rotate(1deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Enable native smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-nav {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(40px);
+            -webkit-backdrop-filter: saturate(180%) blur(40px);
+        }
+        .dark .glass-nav {
+            background-color: rgba(10, 10, 12, 0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .dark .glass-card {
+            background: rgba(30, 30, 35, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(7, 48, 75, 0.2);
+        }
+        .dark .glass-card:hover {
+            border-color: rgba(96, 165, 250, 0.2);
+        }
+
+        /* Ambient Glow Effects */
+        .ambient-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(7,48,75,0.15) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+        .dark .ambient-glow {
+            background: radial-gradient(circle, rgba(7,48,75,0.25) 0%, rgba(0,0,0,0) 60%);
+        }
+        
+        /* Smooth Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom scrollbar for Studio simulation block */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(120, 120, 120, 0.3);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-apple-bgLight dark:bg-apple-bgDark text-apple-textLight dark:text-apple-textDark transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Ambient background glows with floating animations -->
+    <div class="ambient-glow animate-float" style="top: -200px; right: -200px; background: radial-gradient(circle, rgba(7,48,75,0.08) 0%, rgba(0,0,0,0) 60%);"></div>
+    <div class="hidden dark:block ambient-glow animate-float-delayed" style="top: 40%; left: -300px; background: radial-gradient(circle, rgba(7,48,75,0.15) 0%, rgba(0,0,0,0) 60%);"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo linking back to homepage -->
+                <a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html" class="flex-shrink-0 flex items-center cursor-pointer group">
+                    <img class="h-8 w-auto mr-3 object-contain group-hover:scale-105 transition-transform" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('logo-text').classList.remove('hidden');">
+                    <span id="logo-text" class="font-semibold text-lg tracking-tight hidden">Solarglyph Labs</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Home.html" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Home Page</a>
+                    <a href="#demo" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Interactive Demo</a>
+                    <a href="#features" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Core Features</a>
+                    <a href="#install" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">How to Install</a>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none hover:rotate-12" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden text-gray-700"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-gray-300"></i>
+                    </button>
+                    
+                    <!-- CTA to buy/trigger modal -->
+                    <button onclick="openPurchaseModal()" class="text-sm font-medium bg-solarglyph text-white px-5 py-2.5 rounded-full hover:bg-opacity-90 hover:scale-105 transition-all shadow-md flex items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i> Get Developer Intelligence
+                    </button>
+                </div>
+
+                <!-- Mobile theme menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-12 overflow-hidden flex flex-col justify-center min-h-[85vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div class="inline-flex items-center space-x-2 bg-solarglyph/10 dark:bg-solarglyph/20 text-solarglyph dark:text-blue-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 animate-fade-in-up border border-solarglyph/10 dark:border-blue-400/20 glass-card">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-500 animate-pulse"></i>
+                <span>The Premier AI Plugin for Roblox Studio</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                Roblox building. <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-solarglyph to-blue-500 dark:from-blue-400 dark:to-solarglyph">Intellectually supercharged.</span>
+            </h1>
+            
+            <p class="mt-4 text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-10 opacity-0 animate-[fadeInUp_1s_cubic-bezier(0.16,1,0.3,1)_0.2s_forwards]">
+                Developer Intelligence bridges the gap between complex Roblox Luau coding and raw speed. Generate scripts, build environments, and debug errors instantly.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 opacity-0 animate-[fadeInUp_1s_cubic-bezier(0.16,1,0.3,1)_0.4s_forwards]">
+                <button onclick="openPurchaseModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-2xl hover:shadow-solarglyph/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Buy Local Plugin
+                </button>
+                <a href="#demo" class="w-full sm:w-auto px-8 py-4 rounded-full glass-card font-medium text-lg hover:bg-gray-100/50 dark:hover:bg-white/10 transition-all duration-300 flex items-center justify-center group">
+                    Watch AI Live Demo <i data-lucide="arrow-down" class="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Decorative subtle base light -->
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[1000px] h-[300px] bg-solarglyph/5 dark:bg-solarglyph/15 blur-[120px] rounded-full pointer-events-none animate-float"></div>
+    </section>
+
+    <!-- Interactive Simulator Section ("Ask for Trees" with Blurred Baseplate Viewport) -->
+    <section id="demo" class="py-24 relative overflow-hidden bg-white/20 dark:bg-black/40 border-t border-b border-gray-100 dark:border-white/5 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto reveal mb-16">
+                <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">Live Simulation</h2>
+                <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">See the magic in real time.</h3>
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Watch how Developer Intelligence processes prompts directly above your Roblox Studio command bar to generate beautiful physical assets inside your game viewports.
+                </p>
+            </div>
+
+            <!-- Roblox Studio Workspace Mockup -->
+            <div class="max-w-5xl mx-auto glass-card rounded-[2.5rem] overflow-hidden border border-white/60 dark:border-white/10 shadow-2xl reveal relative flex flex-col h-[560px]">
+                
+                <!-- Window Title Header Bar -->
+                <div class="bg-gray-100/95 dark:bg-[#1e1e22] border-b border-gray-200 dark:border-white/5 px-6 py-4 flex items-center justify-between select-none shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3.5 h-3.5 rounded-full bg-red-500/80 block"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-yellow-500/80 block"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-green-500/80 block"></span>
+                        <span class="ml-2 font-mono text-xs text-gray-500 dark:text-gray-400">RobloxStudio2026 - Solarglyph_Labs.rbxl</span>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs font-semibold text-solarglyph dark:text-blue-300">
+                        <span class="px-2.5 py-1 bg-solarglyph/10 dark:bg-blue-400/10 rounded-md flex items-center gap-1.5 border border-solarglyph/15 dark:border-blue-400/10">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span>
+                            AI Agent Active
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Simulation Main Viewport -->
+                <div class="flex-1 relative bg-gradient-to-b from-[#111] to-[#222] overflow-hidden flex flex-col md:flex-row">
+                    
+                    <!-- Left: Interactive Text Terminal/Chat Screen -->
+                    <div class="md:w-1/2 border-r border-white/5 p-6 flex flex-col justify-between font-mono bg-black/60 relative">
+                        <div class="space-y-4 overflow-y-auto custom-scrollbar flex-1 max-h-[350px]">
+                            <!-- Prompt User Box -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[10px] text-blue-400 flex-shrink-0">USR</div>
+                                <div class="text-sm">
+                                    <span class="text-gray-400 block text-xs">Request</span>
+                                    <span id="animated-prompt" class="text-white border-r-2 border-white pr-0.5 whitespace-pre font-semibold"></span>
+                                </div>
+                            </div>
+
+                            <!-- AI Output Processing Box -->
+                            <div id="ai-response-box" class="flex items-start gap-3 opacity-0 transition-opacity duration-300">
+                                <div class="w-6 h-6 rounded-md bg-amber-500/15 border border-amber-500/20 flex items-center justify-center text-[10px] text-amber-400 flex-shrink-0">AI</div>
+                                <div class="text-sm">
+                                    <span class="text-amber-400 block text-xs">Developer Intelligence</span>
+                                    <p id="ai-status-text" class="text-gray-300 text-xs font-semibold">Awaiting input...</p>
+                                    <pre id="ai-code-display" class="text-cyan-400 text-xs mt-2 overflow-x-auto custom-scrollbar select-none"></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Input Simulation -->
+                        <div class="pt-4 border-t border-white/5 flex items-center gap-3">
+                            <i data-lucide="terminal" class="w-4 h-4 text-gray-500"></i>
+                            <div class="text-xs text-gray-500 flex-1">Solarglyph local plugin command bar</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual 3D Viewport Simulation with Blurred Roblox Studio Template -->
+                    <div class="md:w-1/2 relative flex items-center justify-center overflow-hidden">
+                        
+                        <!-- Blurred Roblox Studio Classic Baseplate Template Background -->
+                        <div class="absolute inset-0 z-0 overflow-hidden flex flex-col pointer-events-none filter blur-md opacity-45">
+                            <!-- Simulated Skybox (Light blue to soft horizon) -->
+                            <div class="w-full h-1/2 bg-gradient-to-b from-[#8ab2ff] to-[#d6e4ff]"></div>
+                            <!-- Horizon Line & Grass/Baseplate Floor -->
+                            <div class="w-full h-1/2 bg-[#5d7d4a] relative">
+                                <!-- Baseplate grid pattern -->
+                                <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:15px_15px]"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Overlay subtle spatial studs grid in front of blur -->
+                        <div class="absolute inset-0 z-10 bg-[radial-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+                        <!-- Floating Glassmorphic Viewport Info Box -->
+                        <div class="absolute top-4 left-4 z-20 glass-card px-3 py-1.5 rounded-lg text-[10px] border border-white/5 font-mono text-gray-300">
+                            Viewport: perspective_camera (Studio Template)
+                        </div>
+
+                        <!-- Asset Canvas Container -->
+                        <div class="relative w-full h-full flex items-center justify-center z-10">
+                            
+                            <!-- Forest/Tree container -->
+                            <div id="forest-canvas" class="absolute inset-0 flex items-center justify-center gap-3 px-6 pb-12">
+                                <!-- Dynamic trees will fade in here -->
+                            </div>
+
+                            <!-- Your cutout image, made BIGGER and positioned beautifully in front with floating animation -->
+                            <div class="absolute bottom-4 right-4 z-20 w-36 sm:w-48 lg:w-56 drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] animate-float-cutout">
+                                <img src="https://ur98tr8789461.github.io/Solarglyph_Labs/DeveloperIntelligenceCutout.png" 
+                                     alt="Developer Intelligence Character" 
+                                     class="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-500">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section based on DevForum post -->
+    <section id="features" class="py-24 relative overflow-hidden bg-transparent border-b border-gray-100 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto reveal mb-20">
+                <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">Powerhouse Suite</h2>
+                <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Designed to scale your development.</h3>
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Developer Intelligence integrates deep neural structures directly into Roblox Studio, offering unparalleled creative assistance right on your desktop device.
+                </p>
+            </div>
+
+            <!-- Features Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="code-2" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Context-Aware Luau Scripting</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Reads nearby module scripts and local variables to write precise, standard Luau code block suggestions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="layout" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Instant Procedural Spawning</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Generate assemblies, tree clusters, cities, or custom terrain parts through simple natural language directives.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="bug" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Diagnostics & Diagnostics</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Debug workspace scripts instantly. Detect memory leaks, unoptimized loops, and old deprecated Roblox API formats.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="database" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Up-to-Date Roblox API Knowledge</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Fully synced with the Roblox Creator Documentation database to ensure generated code never fails runtime execution.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Fully Local Plugin Structure</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Saves locally to your hardware. No external injection modules or background configurations required.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="glass-card rounded-[2rem] p-8 reveal flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400">
+                            <i data-lucide="shield" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Privacy & IP Protection</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Your game code, assets, and licensing key data remain completely yours and local on your system at all times.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Steps Section -->
+    <section id="install" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto reveal mb-20">
+                <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">Workflow</h2>
+                <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Simple Local Installation</h3>
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Since Developer Intelligence operates as a fully localized Roblox tool, installation is straightforward and security-focused. No external injectors, no complicated setups.
+                </p>
+            </div>
+
+            <!-- 3-Step Bento Box Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Step 1 Card -->
+                <div class="glass-card rounded-[2.5rem] p-10 reveal overflow-hidden relative flex flex-col justify-between group h-[380px]">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-solarglyph/10 dark:bg-blue-500/10 blur-[50px] rounded-full pointer-events-none transform translate-x-8 -translate-y-8 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400 border border-solarglyph/10 dark:border-white/5">
+                            <span class="font-bold text-xl">1</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-3 tracking-tight">Retrieve the File</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Purchase and download the official plugin assets directly via our secure Parcel Roblox storefront. You will receive a high-performance local plugin workspace file (`.rbxm` or source directory).
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <button onclick="openPurchaseModal()" class="text-sm font-semibold text-solarglyph dark:text-blue-400 flex items-center gap-1 hover:gap-2 transition-all">
+                            Purchase File <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 Card -->
+                <div class="glass-card rounded-[2.5rem] p-10 reveal overflow-hidden relative flex flex-col justify-between group h-[380px]" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-purple-500/5 dark:bg-purple-500/10 blur-[50px] rounded-full pointer-events-none transform translate-x-8 -translate-y-8 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400 border border-solarglyph/10 dark:border-white/5">
+                            <span class="font-bold text-xl">2</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-3 tracking-tight">Import & Configure</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Drag and drop the downloaded asset file into your active Roblox Studio project. Navigate inside the package, open the <code>Configuration</code> script module, and insert your unique API credential token.
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-widest">Roblox Studio integration</span>
+                    </div>
+                </div>
+
+                <!-- Step 3 Card -->
+                <div class="glass-card rounded-[2.5rem] p-10 reveal overflow-hidden relative flex flex-col justify-between group h-[380px]" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-emerald-500/5 dark:bg-emerald-500/10 blur-[50px] rounded-full pointer-events-none transform translate-x-8 -translate-y-8 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-solarglyph/5 dark:bg-solarglyph/20 flex items-center justify-center mb-6 text-solarglyph dark:text-blue-400 border border-solarglyph/10 dark:border-white/5">
+                            <span class="font-bold text-xl">3</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-3 tracking-tight">Save to Local Plugins</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Right-click the primary model folder inside your Studio explorer tree and select the <strong>"Save as Local Plugin"</strong> option from the context menu. You're done! Your toolbar is now loaded with AI power.
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-widest">Saved locally on device</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-24 relative overflow-hidden bg-white/10 dark:bg-black/20 border-t border-gray-100 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto reveal mb-16">
+                <h2 class="text-sm font-semibold text-solarglyph dark:text-blue-400 tracking-widest uppercase mb-3">Developer Voices</h2>
+                <h3 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Loved by Roblox Creators</h3>
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Hear what builders in the Roblox DevForum community have to say about boosting their productivity.
+                </p>
+            </div>
+
+            <!-- Reviews Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Review 1 -->
+                <div class="glass-card rounded-3xl p-8 reveal flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-6 font-medium">
+                            "Absolutely revolutionary for solo developers. Cut my scripting and testing time in half."
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200 dark:border-white/10 pt-4 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">- ur98tr878946</span>
+                        <span class="text-xs font-mono text-gray-400">Verified Buyer</span>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="glass-card rounded-3xl p-8 reveal flex flex-col justify-between" style="transition-delay: 100ms;">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-6 font-medium">
+                            "The procedural tree cluster and model generator works beautifully. Spawns perfectly configured frames instantly."
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200 dark:border-white/10 pt-4 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">- azazqhgu</span>
+                        <span class="text-xs font-mono text-gray-400">Verified Buyer</span>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="glass-card rounded-3xl p-8 reveal flex flex-col justify-between" style="transition-delay: 200ms;">
+                    <div>
+                        <!-- Stars (4/5) -->
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5"></i>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-6 font-medium">
+                            "Incredible local implementation. Fast, offline-capable, and completely secure. It is exactly what was missing in Studio."
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200 dark:border-white/10 pt-4 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">- Anonymous developer</span>
+                        <span class="text-xs font-mono text-gray-400">Beta Tester</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect / Discord Community CTA -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-card rounded-[3rem] p-12 md:p-20 text-center reveal relative overflow-hidden border border-solarglyph/10 dark:border-blue-500/20">
+                
+                <!-- Animated Background glowing blob -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-solarglyph/5 dark:bg-blue-600/10 blur-[80px] rounded-full pointer-events-none animate-float"></div>
+                
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6 relative z-10">Have questions about setting up?</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto relative z-10">Join our Discord community workspace to ask questions, read setup documentation, or get support from other Roblox creators.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 relative z-10">
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="w-full sm:w-auto px-10 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-xl hover:shadow-solarglyph/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
+                        <i data-lucide="message-square" class="w-5 h-5"></i> Join Developer Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sleek Custom Redirect Modal (Parcel Checkout Warning) -->
+    <div id="purchase-modal" class="fixed inset-0 z-50 flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-md"></div>
+        
+        <!-- Modal Card -->
+        <div class="glass-card max-w-md w-full rounded-[2rem] p-8 relative z-10 border border-white/20 dark:border-white/10 shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="p-3 bg-solarglyph/10 dark:bg-blue-500/15 text-solarglyph dark:text-blue-400 rounded-2xl">
+                    <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold tracking-tight">Checkout Redirection</h3>
+                    <p class="text-xs text-gray-400 font-mono">shop.parcelroblox.com</p>
+                </div>
+            </div>
+            
+            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-8">
+                You are about to purchase <strong>Developer Intelligence</strong>. This action will securely redirect you to our official <strong>Parcel Shop</strong> workspace to process payment, authenticate licensing, and package your plugin download.
+            </p>
+            
+            <div class="flex gap-4">
+                <button onclick="closePurchaseModal()" class="flex-1 py-3.5 rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300/50 dark:hover:bg-white/15 text-sm font-semibold transition-colors duration-200">
+                    Cancel
+                </button>
+                <a href="https://shop.parcelroblox.com/product/x2z9gqb7nf9harwzc42di3qcbwwn" target="_blank" onclick="closePurchaseModal()" class="flex-1 py-3.5 rounded-xl bg-solarglyph text-white text-center text-sm font-semibold hover:bg-opacity-90 transition-colors duration-200 shadow-md">
+                    Proceed to Shop
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#050505] pt-16 pb-8 transition-colors duration-500 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <!-- Logo using provided URL -->
+                    <img class="h-8 w-auto mb-6 object-contain" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('footer-logo-text').classList.remove('hidden');">
+                    <span id="footer-logo-text" class="font-semibold text-xl tracking-tight hidden mb-6 block">Solarglyph Labs</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Precision software engineered for the modern web and beyond.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Products</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://ur98tr8789461.github.io/Solarglyph_Labs/DeveloperIntelligence.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Developer Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Community & Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Discord Server</a></li>
+                        <li><a href="Termsandconditions.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    &copy; <span id="year"></span> Solarglyph Labs. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-gray-400">
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="github" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+        
+        // Set Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const htmlClasses = document.documentElement.classList;
+        const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlClasses.add('dark');
+        } else {
+            htmlClasses.remove('dark');
+        }
+
+        function toggleTheme() {
+            if (htmlClasses.contains('dark')) {
+                htmlClasses.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlClasses.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        themeToggles.forEach(btn => {
+            if(btn) btn.addEventListener('click', toggleTheme);
+        });
+
+        // Scroll Reveal Animation (Smooth scaling reveal)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 80;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        setTimeout(reveal, 100);
+
+        /* =====================================================================
+           MODAL TOGGLE LOGIC
+        ===================================================================== */
+        const modal = document.getElementById('purchase-modal');
+        const modalContent = modal.querySelector('.glass-card');
+
+        function openPurchaseModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closePurchaseModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+        }
+
+        // Close on clicking backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('absolute')) {
+                closePurchaseModal();
+            }
+        });
+
+        /* =====================================================================
+           INTERACTIVE TEXT AUTOMATION & VIEWPORT ANIMATION ("Ask for Trees")
+        ===================================================================== */
+        const promptSpan = document.getElementById('animated-prompt');
+        const aiBox = document.getElementById('ai-response-box');
+        const statusText = document.getElementById('ai-status-text');
+        const codeDisplay = document.getElementById('ai-code-display');
+        const forestCanvas = document.getElementById('forest-canvas');
+
+        const promptText = "create a forest of realistic pine trees";
+        const codeLines = [
+            "-- Generating procedural forest --",
+            "local Terrain = workspace.Terrain",
+            "for i = 1, 6 do",
+            "   local p = Instance.new('Part')",
+            "   p.Shape = Enum.PartType.Ball",
+            "   -- Spawning pine tree model --",
+            "end"
+        ];
+
+        let typeIdx = 0;
+        let loopTimer = null;
+
+        function startSimulationLoop() {
+            // Reset states
+            promptSpan.textContent = "";
+            aiBox.style.opacity = "0";
+            statusText.textContent = "Awaiting input...";
+            codeDisplay.textContent = "";
+            forestCanvas.innerHTML = "";
+            typeIdx = 0;
+            
+            // Step 1: Type the prompt
+            typePrompt();
+        }
+
+        function typePrompt() {
+            if (typeIdx < promptText.length) {
+                promptSpan.textContent += promptText.charAt(typeIdx);
+                typeIdx++;
+                setTimeout(typePrompt, 80);
+            } else {
+                // Done typing, pause then transition to AI thinking
+                setTimeout(triggerAIThinking, 800);
+            }
+        }
+
+        function triggerAIThinking() {
+            aiBox.style.opacity = "1";
+            statusText.textContent = "Processing prompt...";
+            
+            // Step 2: Show code assembly typing
+            setTimeout(() => {
+                statusText.textContent = "Compiling Luau generation asset...";
+                displayCode(0);
+            }, 1000);
+        }
+
+        function displayCode(lineIndex) {
+            if (lineIndex < codeLines.length) {
+                codeDisplay.textContent += codeLines[lineIndex] + "\n";
+                setTimeout(() => displayCode(lineIndex + 1), 250);
+            } else {
+                // Step 3: Spawn trees visually in viewport
+                setTimeout(spawnTrees, 600);
+            }
+        }
+
+        function spawnTrees() {
+            statusText.textContent = "Successfully built forest assets!";
+            
+            // SVG assets representing stylized pine trees
+            const treeSVGs = [
+                `<svg class="w-10 h-16 md:w-16 md:h-24 text-green-500 fill-current transform scale-0 transition-transform duration-500 delay-100 ease-out" viewBox="0 0 100 150"><polygon points="50,10 10,90 90,90"/><polygon points="50,40 20,110 80,110"/><rect x="42" y="110" width="16" height="30" fill="#78350f"/></svg>`,
+                `<svg class="w-12 h-20 md:w-20 md:h-32 text-emerald-600 fill-current transform scale-0 transition-transform duration-500 delay-300 ease-out" viewBox="0 0 100 150"><polygon points="50,10 15,80 85,80"/><polygon points="50,35 25,105 75,105"/><rect x="44" y="105" width="12" height="35" fill="#78350f"/></svg>`,
+                `<svg class="w-8 h-12 md:w-14 md:h-20 text-teal-600 fill-current transform scale-0 transition-transform duration-500 delay-200 ease-out" viewBox="0 0 100 150"><polygon points="50,10 20,85 80,85"/><polygon points="50,40 30,115 70,115"/><rect x="45" y="115" width="10" height="25" fill="#7c2d12"/></svg>`,
+                `<svg class="w-10 h-16 md:w-16 md:h-24 text-green-600 fill-current transform scale-0 transition-transform duration-500 delay-400 ease-out" viewBox="0 0 100 150"><polygon points="50,15 15,85 85,85"/><polygon points="50,45 25,115 75,115"/><rect x="43" y="115" width="14" height="25" fill="#7c2d12"/></svg>`
+            ];
+
+            // Render SVGs to DOM
+            forestCanvas.innerHTML = treeSVGs.join('');
+
+            // Push scales from 0 to 1 shortly after render to trigger CSS transition
+            setTimeout(() => {
+                const elements = forestCanvas.querySelectorAll('svg');
+                elements.forEach(el => {
+                    el.classList.remove('scale-0');
+                    el.classList.add('scale-100', 'animate-bounce-once');
+                });
+            }, 100);
+
+            // Hold state then restart animation cycle
+            setTimeout(startSimulationLoop, 6000);
+        }
+
+        // Kickoff simulation on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(startSimulationLoop, 1500);
+        });
+    </script>
+</body>
+</html>
