@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark style-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,6 +55,11 @@
     </script>
 
     <style>
+        /* Enable native smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Custom Glassmorphism Utilities - Upgraded for heavier blur */
         .glass-nav {
             background-color: rgba(255, 255, 255, 0.5);
@@ -140,9 +145,9 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">About</a>
-                    <a href="#products" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
-                    <a href="#connect" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Connect</a>
+                    <a href="#about" class="scroll-link text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">About</a>
+                    <a href="#products" class="scroll-link text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
+                    <a href="#connect" class="scroll-link text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Connect</a>
                     
                     <!-- Theme Toggle Button -->
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none hover:rotate-12" aria-label="Toggle Dark Mode">
@@ -151,7 +156,7 @@
                     </button>
                     
                     <!-- CTA -->
-                    <a href="#products" class="text-sm font-medium bg-solarglyph text-white px-5 py-2.5 rounded-full hover:bg-opacity-90 hover:scale-105 transition-all shadow-md">
+                    <a href="#products" class="scroll-link text-sm font-medium bg-solarglyph text-white px-5 py-2.5 rounded-full hover:bg-opacity-90 hover:scale-105 transition-all shadow-md">
                         Explore Labs
                     </a>
                 </div>
@@ -186,10 +191,10 @@
                 Solarglyph Labs builds next-generation digital products, high-performance software, and intelligent plugins designed for modern creators.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 opacity-0 animate-[fadeInUp_1s_cubic-bezier(0.16,1,0.3,1)_0.4s_forwards]">
-                <a href="#products" class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-2xl hover:shadow-solarglyph/30 hover:-translate-y-1 transition-all duration-300">
+                <a href="#products" class="scroll-link w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-2xl hover:shadow-solarglyph/30 hover:-translate-y-1 transition-all duration-300">
                     View Our Software
                 </a>
-                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-full glass-card font-medium text-lg hover:bg-gray-100/50 dark:hover:bg-white/10 transition-all duration-300 flex items-center justify-center group">
+                <a href="#about" class="scroll-link w-full sm:w-auto px-8 py-4 rounded-full glass-card font-medium text-lg hover:bg-gray-100/50 dark:hover:bg-white/10 transition-all duration-300 flex items-center justify-center group">
                     Discover Our Story <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
@@ -278,7 +283,7 @@
               This container is populated automatically by the JavaScript array below. 
               To edit, add, or remove products, simply modify the `productsData` array in the <script> tags!
             -->
-            <div id="products-container" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div id="products-container" class="grid grid-cols-1 lg:grid-cols-1 gap-8 max-w-4xl mx-auto">
                 <!-- Products injected via JS -->
             </div>
         </div>
@@ -292,15 +297,12 @@
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-solarglyph/5 dark:bg-blue-600/10 blur-[80px] rounded-full pointer-events-none animate-float"></div>
                 
                 <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6 relative z-10">Ready to upgrade your workflow?</h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto relative z-10">Experience Developer Intelligence and our upcoming software suite today.</p>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto relative z-10">Experience Developer Intelligence and join our community to get in touch.</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 relative z-10">
-                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-xl hover:shadow-solarglyph/40 hover:-translate-y-1 transition-all duration-300">
-                        Join the Discord server to get in contact
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="w-full sm:w-auto px-10 py-4 rounded-full bg-solarglyph text-white font-medium text-lg hover:shadow-xl hover:shadow-solarglyph/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
+                        <i data-lucide="message-square" class="w-5 h-5"></i> Join Discord
                     </a>
-                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-gray-200/50 dark:bg-white/10 font-medium text-lg hover:bg-gray-300/50 dark:hover:bg-white/20 transition-all duration-300 backdrop-blur-md">
-                        I'm not sure
-                    </button>
                 </div>
             </div>
         </div>
@@ -309,7 +311,7 @@
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#050505] pt-16 pb-8 transition-colors duration-500 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1">
                     <!-- Logo using provided URL -->
                     <img class="h-8 w-auto mb-6 object-contain" 
@@ -318,7 +320,7 @@
                          onerror="this.style.display='none'; document.getElementById('footer-logo-text').classList.remove('hidden');">
                     <span id="footer-logo-text" class="font-semibold text-xl tracking-tight hidden mb-6 block">Solarglyph Labs</span>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Precision software and digital plugins engineered for the modern web and beyond.
+                        Precision software engineered for the modern web and beyond.
                     </p>
                 </div>
                 
@@ -330,19 +332,9 @@
                 </div>
 
                 <div>
-                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Company</h4>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Community & Legal</h4>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><a href="#about" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">About Us</a></li>
-                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Careers</a></li>
-                        <li><a href="#connect" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Legal</h4>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-                        <!-- Updated Terms and Conditions Link -->
+                        <li><a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Discord Server</a></li>
                         <li><a href="https://ur98tr8789461.github.io/Solarglyph_Labs/Termsandconditions.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
@@ -353,9 +345,8 @@
                     &copy; <span id="year"></span> Solarglyph Labs. All rights reserved.
                 </p>
                 <div class="flex space-x-6 mt-4 md:mt-0 text-gray-400">
-                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="message-square" class="w-5 h-5"></i></a>
                     <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="github" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
                 </div>
             </div>
         </div>
@@ -378,7 +369,6 @@
                 glowColor: "from-blue-500 to-cyan-400",
                 delay: "0ms"
             }
-            // You can easily copy and paste a block above to add a 2nd or 3rd product later!
         ];
 
         // Function to render products to the DOM
@@ -388,7 +378,7 @@
 
             productsData.forEach((product) => {
                 html += `
-                <div class="glass-card rounded-[2.5rem] overflow-hidden group reveal relative min-h-[420px]" style="transition-delay: ${product.delay};">
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group reveal relative min-h-[380px]" style="transition-delay: ${product.delay};">
                     <div class="p-10 md:p-12 flex flex-col h-full z-10 relative">
                         <div class="mb-6">
                             <span class="px-4 py-1.5 text-xs font-bold rounded-full uppercase tracking-wider shadow-sm ${product.tagColor}">
@@ -396,7 +386,7 @@
                             </span>
                         </div>
                         <h3 class="text-3xl md:text-4xl font-bold mb-4 group-hover:text-solarglyph dark:group-hover:text-blue-400 transition-colors duration-300 tracking-tight">${product.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-md text-lg leading-relaxed">${product.description}</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl text-lg leading-relaxed">${product.description}</p>
                         
                         <div class="mt-auto">
                             <a href="${product.linkUrl}" class="text-solarglyph dark:text-blue-400 font-semibold flex items-center group-hover:translate-x-3 transition-transform duration-300 text-lg w-fit">
@@ -417,13 +407,38 @@
         renderProducts();
 
         /* =====================================================================
-           SITE FUNCTIONALITY LOGIC
+           SITE FUNCTIONALITY LOGIC & INTERACTIVE SCROLL ANIMATIONS
         ===================================================================== */
         // Initialize Icons
         lucide.createIcons();
         
         // Set Copyright Year
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Implement smooth deceleration scrolling for links manually to make sure it animates beautifully
+        document.querySelectorAll('.scroll-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navOffset = 64; // nav bar height
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+                        // Add temporary glow effect to the section when navigating
+                        targetElement.classList.add('animate-pulse');
+                        setTimeout(() => targetElement.classList.remove('animate-pulse'), 1500);
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
 
         // Dark Mode Logic
         const htmlClasses = document.documentElement.classList;
