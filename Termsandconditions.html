@@ -1,1 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="dark style-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions | Solarglyph Labs</title>
+    
+    <!-- Google Fonts: Inter for that Apple SF Pro look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Tailwind Config for Custom Brand Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        solarglyph: '#07304B', // Brand Accent Color
+                        apple: {
+                            bgLight: '#F5F5F7',
+                            bgDark: '#000000',
+                            textLight: '#1D1D1F',
+                            textDark: '#F5F5F7'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 8s ease-in-out infinite',
+                        'float-delayed': 'float 10s ease-in-out 2s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px) scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Enable native smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-nav {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(40px);
+            -webkit-backdrop-filter: saturate(180%) blur(40px);
+        }
+        .dark .glass-nav {
+            background-color: rgba(10, 10, 12, 0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .dark .glass-card {
+            background: rgba(30, 30, 35, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(7, 48, 75, 0.2);
+        }
+        .dark .glass-card:hover {
+            border-color: rgba(96, 165, 250, 0.2);
+        }
+
+        /* Ambient Glow Effects */
+        .ambient-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(7,48,75,0.15) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+        .dark .ambient-glow {
+            background: radial-gradient(circle, rgba(7,48,75,0.25) 0%, rgba(0,0,0,0) 60%);
+        }
+        
+        /* Smooth Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-apple-bgLight dark:bg-apple-bgDark text-apple-textLight dark:text-apple-textDark transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Ambient background glows with floating animations -->
+    <div class="ambient-glow animate-float" style="top: -200px; right: -200px; background: radial-gradient(circle, rgba(7,48,75,0.08) 0%, rgba(0,0,0,0) 60%);"></div>
+    <div class="hidden dark:block ambient-glow animate-float-delayed" style="top: 50%; left: -300px; background: radial-gradient(circle, rgba(7,48,75,0.15) 0%, rgba(0,0,0,0) 60%);"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo linking back to homepage -->
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer group">
+                    <img class="h-8 w-auto mr-3 object-contain group-hover:scale-105 transition-transform" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('logo-text').classList.remove('hidden');">
+                    <span id="logo-text" class="font-semibold text-lg tracking-tight hidden">Solarglyph Labs</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Home Page</a>
+                    <a href="index.html#products" class="text-sm font-medium hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Products</a>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none hover:rotate-12" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden text-gray-700"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-gray-300"></i>
+                    </button>
+                    
+                    <!-- CTA -->
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="text-sm font-medium bg-solarglyph text-white px-5 py-2.5 rounded-full hover:bg-opacity-90 hover:scale-105 transition-all shadow-md flex items-center gap-2">
+                        <i data-lucide="message-square" class="w-4 h-4"></i> Support Discord
+                    </a>
+                </div>
+
+                <!-- Mobile theme menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-solarglyph/10 dark:bg-solarglyph/20 text-solarglyph dark:text-blue-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 animate-fade-in-up border border-solarglyph/10 dark:border-blue-400/20 glass-card">
+                <i data-lucide="scale" class="w-4 h-4"></i>
+                <span>Last Updated: June 2026</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">
+                Terms and Conditions
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto opacity-0 animate-[fadeInUp_1s_cubic-bezier(0.16,1,0.3,1)_0.2s_forwards]">
+                Please review our terms of service before downloading, purchasing, or using Solarglyph Labs assets or products.
+            </p>
+        </div>
+    </section>
+
+    <!-- Terms content container -->
+    <main class="py-12 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-8">
+            
+            <!-- Section 1: Introduction -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-solarglyph/10 dark:bg-blue-500/15 text-solarglyph dark:text-blue-400 rounded-2xl">
+                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Introduction</h2>
+                        <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            <p>By purchasing, downloading, or using SolarGlyph Labs assets or services, you agree to comply with these Terms.</p>
+                            <p class="font-medium text-solarglyph dark:text-blue-300">If you do not agree to these Terms, you must not use SolarGlyph Labs products or services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Permitted Use -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal" style="transition-delay: 50ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-green-500/10 dark:bg-green-500/15 text-green-600 dark:text-green-400 rounded-2xl">
+                        <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                    </div>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Permitted Use</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                            Our assets may be used for personal and commercial projects, including games, experiences, or applications created on Roblox.
+                        </p>
+                        
+                        <div class="bg-white/30 dark:bg-black/20 rounded-2xl p-6 border border-white/40 dark:border-white/5 space-y-3">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">You are allowed to:</h3>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Use SolarGlyph Labs assets in games</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Monetize projects containing assets</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Modify assets for your own projects</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Publish projects containing assets</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Restrictions -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal border-red-500/10 dark:border-red-500/10" style="transition-delay: 100ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-red-500/10 dark:bg-red-500/15 text-red-600 dark:text-red-400 rounded-2xl">
+                        <i data-lucide="ban" class="w-6 h-6"></i>
+                    </div>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Restrictions</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                            While commercial use of your games or products is fully allowed, users may not distribute or package the original assets themselves:
+                        </p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300 mb-6 pl-1">
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <span>Resell SolarGlyph Labs assets at all</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <span>Redistribute SolarGlyph Labs assets outside your active platform workspace</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <span>Upload SolarGlyph Labs assets for public free or paid download</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <span>Claim original SolarGlyph Labs assets as your own work</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <span>Sell or distribute modified versions of SolarGlyph Labs assets as a separate product</span>
+                            </li>
+                        </ul>
+
+                        <!-- Simplified Takeaway Callout -->
+                        <div class="bg-solarglyph/5 dark:bg-blue-400/5 border border-solarglyph/10 dark:border-blue-400/10 rounded-2xl p-5 flex gap-3 items-center">
+                            <i data-lucide="help-circle" class="w-6 h-6 text-solarglyph dark:text-blue-400 flex-shrink-0"></i>
+                            <p class="text-sm font-medium text-solarglyph dark:text-blue-300 leading-normal">
+                                <strong class="uppercase text-xs tracking-wider block mb-0.5 text-gray-500 dark:text-gray-400">Simplified Summary:</strong>
+                                You can use the assets inside your game, but you cannot sell or give away the assets themselves.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Illegal Use -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal" style="transition-delay: 150ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-yellow-500/10 dark:bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 rounded-2xl">
+                        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Illegal Use</h2>
+                        <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            <p>Our services and assets must not be used for illegal purposes. This includes, but is not limited to, the sale of stolen or unauthorized digital assets, or any activity that violates applicable laws or platform rules.</p>
+                            <p>Users must also fully comply with the rules and policies of any platform they use our assets on, including Roblox.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Intellectual Property -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal" style="transition-delay: 200ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-solarglyph/10 dark:bg-blue-500/15 text-solarglyph dark:text-blue-400 rounded-2xl">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Intellectual Property</h2>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            All original assets remain the intellectual property of SolarGlyph Labs unless explicitly stated otherwise.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Service Availability -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal" style="transition-delay: 250ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-solarglyph/10 dark:bg-blue-500/15 text-solarglyph dark:text-blue-400 rounded-2xl">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Service Availability</h2>
+                        <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            <p>Our services may be updated, modified, or discontinued at any time without notice. We do not guarantee uninterrupted availability of services.</p>
+                            <p class="font-medium">Users accept that they use SolarGlyph Labs products at their own risk.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Termination -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal" style="transition-delay: 300ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-red-500/10 dark:bg-red-500/15 text-red-600 dark:text-red-400 rounded-2xl">
+                        <i data-lucide="user-x" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Termination</h2>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            We reserve the right to restrict access to services if a user violates these Terms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Changes to Terms -->
+            <div class="glass-card rounded-3xl p-8 md:p-10 reveal animate-pulse-once" style="transition-delay: 350ms;">
+                <div class="flex items-start gap-4">
+                    <div class="p-3 bg-solarglyph/10 dark:bg-blue-500/15 text-solarglyph dark:text-blue-400 rounded-2xl">
+                        <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 tracking-tight">Changes to Terms</h2>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+                            We may update these Terms and Conditions at any time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA back to homepage -->
+            <div class="pt-8 text-center reveal" style="transition-delay: 400ms;">
+                <a href="index.html" class="inline-flex items-center gap-2 bg-solarglyph text-white font-medium px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-solarglyph/30 hover:-translate-y-1 transition-all duration-300">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i> Back to Homepage
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#050505] pt-16 pb-8 transition-colors duration-500 relative z-10 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <!-- Logo using provided URL -->
+                    <img class="h-8 w-auto mb-6 object-contain" 
+                         src="https://ur98tr8789461.github.io/Solarglyph_Labs/SolarglyphLabs.png" 
+                         alt="Solarglyph Labs Logo"
+                         onerror="this.style.display='none'; document.getElementById('footer-logo-text').classList.remove('hidden');">
+                    <span id="footer-logo-text" class="font-semibold text-xl tracking-tight hidden mb-6 block">Solarglyph Labs</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Precision software engineered for the modern web and beyond.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Products</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://ur98tr8789461.github.io/Solarglyph_Labs/DeveloperIntelligence.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Developer Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-900 dark:text-white">Community & Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Discord Server</a></li>
+                        <li><a href="Termsandconditions.html" class="hover:text-solarglyph dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    &copy; <span id="year"></span> Solarglyph Labs. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-gray-400">
+                    <a href="https://discord.gg/CZaJZCxJxp" target="_blank" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-solarglyph dark:hover:text-blue-400 transition-transform hover:scale-110"><i data-lucide="github" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+        
+        // Set Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const htmlClasses = document.documentElement.classList;
+        const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        
+        // Check local storage or system preference on load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlClasses.add('dark');
+        } else {
+            htmlClasses.remove('dark');
+        }
+
+        // Toggle theme function
+        function toggleTheme() {
+            if (htmlClasses.contains('dark')) {
+                htmlClasses.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlClasses.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Attach listeners
+        themeToggles.forEach(btn => {
+            if(btn) btn.addEventListener('click', toggleTheme);
+        });
+
+        // Scroll Reveal Animation (Smooth scaling reveal)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 80; // Trigger threshold
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        // Listen for scroll to trigger animations
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load to show elements already in view
+        setTimeout(reveal, 100); 
+    </script>
+</body>
+</html>
