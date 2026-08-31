@@ -2,13 +2,30 @@
   "global_status": "operational",
   "components": [
     {
+      "id": "dev_intel_api",
       "name": "Developer Intelligence API",
-      "status": "operational"
+      "status": "operational",
+      "history": {
+        "2026-08-25": "minor_outage",
+        "2026-08-26": "major_outage"
+      }
     },
     {
+      "id": "website",
       "name": "Solarglyph Labs Website",
-      "status": "operational"
+      "status": "operational",
+      "history": {}
     }
   ],
-  "active_incidents": []
+  "active_incidents": [],
+  "scheduled_maintenance": [
+    {
+      "title": "Database Infrastructure Upgrades",
+      "start_time": "2026-09-05T02:00:00Z",
+      "end_time": "2026-09-05T04:00:00Z",
+      "affected_components": ["Developer Intelligence API"],
+      "state": "upcoming",
+      "message": "We will be upgrading the primary database cluster. Expect brief API timeouts during this window."
+    }
+  ]
 }
