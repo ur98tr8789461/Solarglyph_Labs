@@ -1,0 +1,14 @@
+{
+  "global_status": "operational",
+  "components": [
+    {
+      "name": "Developer Intelligence API",
+      "status": "operational"
+    },
+    {
+      "name": "Solarglyph Labs Website",
+      "status": "operational"
+    }
+  ],
+  "active_incidents": []
+}
